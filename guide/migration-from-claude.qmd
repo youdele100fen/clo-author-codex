@@ -1,0 +1,161 @@
+---
+title: "Migration from Claude"
+subtitle: "How the Old Clo-Author Maps to the Codex Version"
+---
+
+# Overview
+
+The Codex version is a migration, not a reinvention. Most of the research logic stayed the same:
+
+- plan first
+- save artifacts to disk
+- use worker-critic review
+- keep referee-style pressure testing
+- gate important work with quality thresholds
+
+What changed is the runtime architecture.
+
+---
+
+# Old to New Mapping
+
+| Claude Version | Codex Version |
+|----------------|---------------|
+| `CLAUDE.md` | `AGENTS.md` |
+| `.claude/settings.json` | plugin `hooks.json` plus helper scripts |
+| `.claude/skills/` | plugin `skills/` |
+| `.claude/agents/` | plugin prompt roles and legacy prompt references |
+| `.claude/references/` | plugin `references/` |
+| slash commands | skills or natural-language workflow requests |
+| Claude memory behavior | `MEMORY.md` plus saved plans and session logs |
+| repository-contained infrastructure | home-local plugin plus repo markers |
+
+---
+
+# What Stayed the Same
+
+These parts are still central:
+
+- the 10 workflow families
+- worker-critic separation
+- quality gates
+- domain and journal profiles
+- `quality_reports/` as the evidence trail
+- research folder layout (`paper/`, `data/`, `scripts/`, `explorations/`)
+
+If you knew the old clo-author well, the concepts will still feel familiar.
+
+---
+
+# What Changed
+
+## 1. The project entry file
+
+The old version started with `CLAUDE.md`. The new version starts with:
+
+- `AGENTS.md`
+- `clo-author.toml`
+
+`AGENTS.md` tells Codex how to behave in the repository. `clo-author.toml` tells the plugin that the repository belongs to the Clo-Author workflow.
+
+## 2. The reusable infrastructure
+
+The old version copied most infrastructure into every repository. The new version moves reusable parts into the home-local plugin:
+
+- skills
+- prompts
+- references
+- hooks
+- scripts
+- template assets
+
+## 3. The invocation style
+
+The old version emphasized slash commands. The new version emphasizes:
+
+- plain-language workflow requests
+- explicit skill naming when useful
+
+Examples:
+
+```text
+Use $discover to run a literature review.
+Use $review to run a methods-focused manuscript review.
+Use $new-project to scaffold a new repository.
+```
+
+## 4. The automation model
+
+The old version depended on Claude-specific hooks and command routing. The new version uses plugin hooks and scripts for:
+
+- project detection
+- project initialization
+- migration
+- post-edit review nudges
+
+---
+
+# Recommended Migration Path
+
+## For an existing repository
+
+1. Keep the legacy `.claude/` assets in place during the first migration pass.
+2. Add `AGENTS.md`.
+3. Add `clo-author.toml`.
+4. Confirm the plugin detects the repository.
+5. Start using skills or natural-language Codex requests.
+6. Migrate customization into the Codex-facing layers over time.
+
+## For a new repository
+
+1. Install the home-local plugin.
+2. Use `new-project` to scaffold the repository.
+3. Fill in `AGENTS.md` and `clo-author.toml`.
+4. Customize field and journal references.
+
+---
+
+# Migration Heuristics
+
+## Keep these
+
+- `paper/`
+- `data/`
+- `scripts/`
+- `quality_reports/`
+- `explorations/`
+- bibliography and supporting documents
+
+## Add these
+
+- `AGENTS.md`
+- `clo-author.toml`
+- Codex-oriented plans, specs, and logs if they are missing
+
+## Do not delete too early
+
+- legacy `.claude/` assets
+- old quality reports
+- old references or journal profiles
+
+The first safe milestone is coexistence. Hard cutover can happen later.
+
+---
+
+# Common Questions
+
+## Is the Claude version still supported?
+
+This documentation set is now Codex-first. The old materials can still exist in the repository for migration traceability, but the active guidance has moved to Codex.
+
+## Do I still have the same agent roles?
+
+Yes, conceptually. They now live as prompt roles and workflow roles rather than a Claude-only runtime registry.
+
+## Do I lose the peer-review system?
+
+No. The Codex version keeps the same editor, referee, and quality-gate concepts.
+
+## Is the new version less automatic?
+
+No. The goal is still strong automation, but the mechanism is now plugin-driven instead of Claude-specific.

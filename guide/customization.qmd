@@ -1,0 +1,172 @@
+---
+title: "Customization Guide"
+subtitle: "How to Adapt the Codex Version of the Clo-Author"
+---
+
+# Overview
+
+The Codex version of the Clo-Author is split between a reusable home-local plugin and lightweight files inside each project repository.
+
+| Layer | Location | Purpose |
+|-------|----------|---------|
+| Project constitution | `AGENTS.md` | Repository-specific workflow rules |
+| Project marker | `clo-author.toml` | Project detection and workflow defaults |
+| Durable memory | `MEMORY.md` | Reusable project learnings |
+| Skills | home-local plugin `skills/` | Workflow entry points |
+| Prompts | home-local plugin `prompts/` | Worker, critic, referee, and orchestration roles |
+| References | home-local plugin `references/` | Domain, journal, and rubric material |
+| Hooks and scripts | home-local plugin `hooks.json`, `hooks/`, `scripts/` | Detection, nudges, initialization, migration, logging |
+
+This keeps the repository small while making the reusable workflow portable across projects.
+
+---
+
+# `AGENTS.md`
+
+`AGENTS.md` is now the project constitution. It is the repository-level entry point that tells Codex:
+
+- what this project is
+- which workflow norms apply
+- where outputs belong
+- how strict the review and verification rules should be
+
+Keep it short and practical. It should guide the workflow, not become an encyclopedia.
+
+---
+
+# `clo-author.toml`
+
+`clo-author.toml` is the project marker that allows the plugin to recognize the repository.
+
+Typical contents:
+
+- project name
+- slug
+- field
+- institution
+- workflow defaults
+- quality thresholds
+
+When the plugin sees `clo-author.toml` plus the expected directory structure, it can treat the repository as a Clo-Author project.
+
+---
+
+# Skills
+
+The Codex version keeps the same 10 workflow families, but presents them as skills and natural-language workflows.
+
+The plugin skill directories are:
+
+- `new-project`
+- `discover`
+- `strategize`
+- `analyze`
+- `write`
+- `review`
+- `revise`
+- `talk`
+- `submit`
+- `tools`
+
+You can customize a skill in two ways:
+
+1. update the skill summary and workflow instructions
+2. update the prompt and reference files the skill relies on
+
+---
+
+# Prompts and Role Design
+
+The old Claude version used an explicit `.claude/agents/` registry. The Codex version keeps the same conceptual roles, but treats them as prompt roles and workflow roles:
+
+- workers
+- critics
+- referees
+- orchestrator
+- verifier
+
+The current plugin also preserves the old agent texts under `prompts/legacy-agents/` so migration remains traceable.
+
+Use prompt-layer customization when you want to change:
+
+- tone of reviews
+- strictness of scoring
+- field-specific reasoning style
+- submission or referee behavior
+
+---
+
+# References
+
+Field adaptation still lives in reference material.
+
+Key reference areas:
+
+- domain profile
+- journal profiles
+- quality rules
+- legacy rules and legacy skill materials
+
+Use references when you want to change:
+
+- field conventions
+- preferred journals
+- common data sources
+- typical identification strategies
+- review culture
+
+---
+
+# Hooks and Scripts
+
+The Codex version uses plugin hooks and helper scripts instead of the old repository-local hook configuration.
+
+Current responsibilities include:
+
+- detecting Clo-Author repositories
+- nudging post-edit review
+- initializing projects
+- migrating old repositories
+- writing session-log stubs
+
+Keep hooks lightweight. Use scripts for mechanical actions and keep nuanced reasoning in the workflow itself.
+
+---
+
+# Template Assets
+
+The plugin ships a project template that can generate:
+
+- `AGENTS.md`
+- `MEMORY.md`
+- `clo-author.toml`
+- research directories
+- `quality_reports/` scaffolding
+
+Customize the template when you want every new repository to inherit a different default structure.
+
+---
+
+# Domain and Journal Customization
+
+The research logic is still highly field-sensitive.
+
+Customize:
+
+- domain profiles for field norms and data sources
+- journal profiles for review culture and contribution bar
+- manuscript and analysis conventions in `AGENTS.md`
+
+That combination usually matters more than changing the skills themselves.
+
+---
+
+# Migration-Aware Customization
+
+If you are still running legacy `.claude/` assets alongside the plugin:
+
+- keep the old assets intact during the first migration pass
+- move new customization into the Codex-facing layers
+- use the migration appendix to keep the mapping clear
+
+See [Migration from Claude](migration-from-claude.qmd) for the exact correspondence table.

@@ -1,0 +1,295 @@
+---
+title: "User Guide"
+subtitle: "How to Use the Codex Version of the Clo-Author"
+---
+
+# How It Works
+
+You describe the research task in plain language or invoke one of the Clo-Author skills directly. Codex handles the rest through the plugin plus the project files in your repository.
+
+| You Do | The Workflow Does |
+|--------|-------------------|
+| Describe the task or name a skill | Picks the right workflow family |
+| Approve or refine the plan when needed | Saves plans and logs to `quality_reports/` |
+| Review important artifacts | Runs worker-critic or referee review by default |
+| Decide when to ship | Applies the quality gates |
+
+For non-trivial work, the Codex version stays plan-first. For substantial artifacts, it defaults to a worker step and then a critic step.
+
+---
+
+# The Research Workflow
+
+The research pipeline still has five phases, with Codex skills acting as the main workflow entry points.
+
+```text
+Phase 1: Discovery
+  discover      -> interview, literature, data, ideation
+
+Phase 2: Strategy
+  strategize    -> design memo, assumptions, falsification plan
+
+Phase 3: Execution
+  analyze       -> scripts, tables, figures, cleaned data
+  write         -> paper sections, revisions, humanizer pass
+
+Phase 4: Review
+  review        -> worker-critic review, referee review, quality gates
+  revise        -> route comments into revisions
+
+Phase 5: Submission
+  talk          -> talks and slide audits
+  submit        -> package, audit, final readiness
+  tools         -> compile, validate, inspect workflow state
+```
+
+You can enter at any stage. A fresh repository usually starts with `new-project` or `discover`. An active repository may start with `review`, `analyze`, or `write`.
+
+---
+
+# Skill-by-Skill Usage
+
+## `new-project`
+
+Use this when you need a fresh repository scaffold.
+
+What it does:
+
+- creates `AGENTS.md`
+- creates `clo-author.toml`
+- creates the research folder layout
+- creates `quality_reports/` directories
+
+Good prompt:
+
+```text
+Use $new-project to initialize a new project on municipal bond markets.
+```
+
+## `discover`
+
+Use this for research interviews, literature review, data discovery, and broad ideation.
+
+Typical outputs:
+
+- research specification
+- literature synthesis
+- data source memo
+- frontier map
+
+Good prompt:
+
+```text
+Use $discover to build a literature and data overview for the effect of rent control on mobility.
+```
+
+## `strategize`
+
+Use this for identification design, assumptions, robustness plans, and pre-analysis logic.
+
+Typical outputs:
+
+- strategy memo
+- design options with trade-offs
+- robustness checklist
+- falsification plan
+
+Good prompt:
+
+```text
+Use $strategize to compare DiD and IV approaches for this project and recommend one.
+```
+
+## `analyze`
+
+Use this for data cleaning, estimation, robustness checks, figures, and tables.
+
+Typical outputs:
+
+- scripts in `scripts/`
+- cleaned data artifacts
+- tables in `paper/tables/`
+- figures in `paper/figures/`
+
+By default, substantial code and output changes should flow through worker-critic review.
+
+## `write`
+
+Use this for paper drafting and revision.
+
+Typical outputs:
+
+- introduction, data, strategy, results, conclusion
+- revision text
+- abstract and summary sections
+
+The Codex version preserves the same writing standards: effect sizes, notation consistency, hedging control, and evidence-linked claims.
+
+## `review`
+
+Use this for quality review, manuscript review, code review, or referee-style review.
+
+Typical outputs:
+
+- worker-critic review report
+- manuscript issues list
+- code-quality report
+- journal-aware referee report
+
+The same journal-aware review idea survives in the Codex version. The difference is invocation style, not review logic.
+
+## `revise`
+
+Use this when you already have comments, findings, or referee reports and need to route them into action.
+
+Typical outputs:
+
+- revision classification
+- response-letter draft
+- scoped follow-up tasks
+
+## `talk`
+
+Use this to derive talks from the paper, audit an existing deck, or update presentation artifacts after paper changes.
+
+## `submit`
+
+Use this when the project is nearing final packaging and you want replication, audit, and readiness checks.
+
+## `tools`
+
+Use this for compile, validation, project-state inspection, and light housekeeping.
+
+---
+
+# Worker-Critic Review
+
+The worker-critic model remains the backbone of the workflow.
+
+```text
+Worker creates artifact
+-> Critic reviews artifact
+-> If quality is high enough, proceed
+-> If not, fix and re-review
+```
+
+This applies most strongly to:
+
+- strategy memos
+- analysis scripts
+- manuscript sections
+- substantial talk updates
+- final review and submission packaging
+
+The critic does not edit the artifact directly. That separation keeps review honest.
+
+---
+
+# Referee Review
+
+The Codex version still supports the higher-intensity review path:
+
+- domain-oriented review
+- methods-oriented review
+- editor-style synthesis
+- journal calibration through journal profiles
+
+Use this when you want more than a normal quality check — for example, before a conference deadline, journal submission, or serious revision round.
+
+---
+
+# Project Files That Matter
+
+## `AGENTS.md`
+
+This is the Codex-facing project constitution. It tells the model how to behave in this repository and what the workflow expectations are.
+
+## `clo-author.toml`
+
+This is the project marker. It lets the plugin detect the repository and load the Clo-Author workflow with the right defaults.
+
+## `quality_reports/`
+
+This is where the workflow leaves evidence:
+
+- `specs/`
+- `plans/`
+- `session_logs/`
+- review and score artifacts
+
+## `MEMORY.md`
+
+Use this for durable project-specific lessons, conventions, and corrections.
+
+---
+
+# Exploration Workflow
+
+The `explorations/` folder still acts as a sandbox, but the Codex version frames it more explicitly as a lower-stakes experimentation zone.
+
+Use exploration mode when:
+
+- you are testing an idea
+- the output is not ready for the main paper
+- you want to compare approaches before committing to production structure
+
+Graduate work out of `explorations/` only when it is ready to enter the main quality-gated workflow.
+
+---
+
+# Customizing for Your Field
+
+The field-specific behavior still comes from domain profiles, journal profiles, and project rules. The only big change is where that logic lives:
+
+- project constitution in `AGENTS.md`
+- plugin references for domain and journal profiles
+- prompt roles for workers, critics, and referees
+
+For field-level changes, start in the [Customization Guide](customization.qmd).
+
+---
+
+# Upgrading from the Claude Version
+
+The Codex docs treat migration as a first-class path. If you are coming from the old `.claude/` setup:
+
+- keep your legacy assets during the first pass
+- add `AGENTS.md` and `clo-author.toml`
+- let the plugin detect the repository
+- move habits from slash commands to skills or natural language
+
+See the full [Migration from Claude](migration-from-claude.qmd) appendix for the detailed map.
+
+---
+
+# Troubleshooting
+
+## The plugin does not seem active
+
+Check:
+
+1. `~/plugins/clo-author-codex` exists
+2. `~/.agents/plugins/marketplace.json` contains `clo-author-codex`
+3. the project has `AGENTS.md`
+4. the project has `clo-author.toml`
+
+## The project is not detected
+
+Check:
+
+1. `paper/` exists
+2. `quality_reports/plans/` exists
+3. `quality_reports/session_logs/` exists
+4. `python3 ~/plugins/clo-author-codex/scripts/detect_project.py <repo>` returns `MATCH`
+
+## Review is not happening when expected
+
+Check:
+
+1. whether the change is substantial enough to trigger the workflow
+2. whether the edit touched high-signal paths like `paper/` or `scripts/`
+3. whether the hook and queue scripts are present in the plugin
+
+## You are migrating an old Claude project
+
+Start with the migration appendix, not the old README language. The main docs now assume Codex-first operation.

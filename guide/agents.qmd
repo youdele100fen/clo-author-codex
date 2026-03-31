@@ -1,0 +1,155 @@
+---
+title: "Agents and Roles"
+subtitle: "The Worker, Critic, Referee, and Infrastructure Roles"
+---
+
+# How Roles Work in Codex
+
+The Codex version of the Clo-Author keeps the same role design as the Claude version, but the runtime interpretation is different.
+
+Instead of depending on a Claude-only agent registry, Codex uses:
+
+- skill-level workflow entry points
+- prompt roles for workers, critics, and referees
+- hooks and scripts for automatic nudges
+- saved reports and logs as the durable audit trail
+
+The important thing that stayed the same is the separation of powers: creators create, critics review, referees pressure-test, and infrastructure coordinates.
+
+---
+
+# Discovery Roles
+
+## Librarian
+
+Collects and synthesizes literature, maps the frontier, and positions the project in the conversation.
+
+## librarian-critic
+
+Checks for missing literatures, recency gaps, and skewed coverage.
+
+## Explorer
+
+Searches for datasets, evaluates feasibility, and links data options to the research design.
+
+## explorer-critic
+
+Checks measurement validity, sample fit, and identification compatibility.
+
+---
+
+# Strategy Roles
+
+## Strategist
+
+Designs the empirical strategy, assumptions, falsification tests, and robustness plan.
+
+## strategist-critic
+
+Stress-tests the identification logic, inference, and credibility of the design.
+
+---
+
+# Execution Roles
+
+## Data-engineer
+
+Handles data cleaning, variable construction, merges, and output-ready intermediate assets.
+
+## Coder
+
+Implements the main analysis, robustness checks, and result-producing scripts.
+
+## coder-critic
+
+Reviews reproducibility, strategy alignment, and code quality.
+
+## Writer
+
+Drafts or revises manuscript sections, preserving notation, evidence alignment, and empirical-paper structure.
+
+## writer-critic
+
+Checks claims, notation, LaTeX quality, and whether the prose outruns the evidence.
+
+---
+
+# Peer Review Roles
+
+## Editor
+
+Screens the paper, frames the review route, and synthesizes final editorial-style decisions.
+
+## domain-referee
+
+Reviews contribution, literature positioning, and substantive relevance.
+
+## methods-referee
+
+Reviews identification, estimation, inference, and robustness.
+
+These roles remain especially useful near submission or major revision milestones.
+
+---
+
+# Presentation and Infrastructure Roles
+
+## Storyteller
+
+Builds talk structures and presentation artifacts from the paper.
+
+## storyteller-critic
+
+Checks slide narrative, readability, and fidelity to the paper.
+
+## Verifier
+
+Confirms whether compilation, packaging, and artifact-level checks actually pass.
+
+## Orchestrator
+
+Coordinates the broader workflow: planning, routing, review pressure, and quality-gate logic.
+
+---
+
+# Why the Role Design Matters
+
+The role system exists to prevent self-approval.
+
+```text
+Worker creates
+-> Critic reviews
+-> Worker fixes
+-> Critic re-checks
+```
+
+That loop makes it harder for the system to say "looks good" to its own unchecked output.
+
+---
+
+# Role Catalog
+
+The role families remain:
+
+| Role | Purpose |
+|------|---------|
+| Librarian | Literature collection and synthesis |
+| librarian-critic | Literature review quality |
+| Explorer | Data discovery |
+| explorer-critic | Data-fit review |
+| Strategist | Identification design |
+| strategist-critic | Design review |
+| Data-engineer | Data pipeline work |
+| Coder | Analysis implementation |
+| coder-critic | Code and output review |
+| Writer | Manuscript drafting |
+| writer-critic | Manuscript review |
+| Editor | Editorial routing |
+| domain-referee | Substantive referee review |
+| methods-referee | Methods referee review |
+| Storyteller | Presentation generation |
+| storyteller-critic | Presentation review |
+| Verifier | Final verification |
+| Orchestrator | Workflow coordination |
+
+The current plugin also preserves the old prompt texts under its legacy prompt references so the migrated system can keep the original role logic close at hand.

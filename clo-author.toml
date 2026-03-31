@@ -1,0 +1,16 @@
+[project]
+name = "The Clo-Author Codex Migration Source"
+slug = "the-clo-author-codex-migration-source"
+field = "Empirical Social Science"
+institution = "Template Repository"
+
+[workflow]
+plugin = "clo-author-codex"
+entry_style = "skills"
+review_mode = "worker-critic"
+automation = "auto"
+
+[quality]
+commit = 80
+pull_request = 90
+submission = 95

@@ -1,0 +1,232 @@
+---
+title: "Skill Reference"
+subtitle: "The 10 Codex Workflow Families"
+---
+
+# Quick Lookup
+
+| Skill | Use It For | Main Outputs |
+|-------|------------|--------------|
+| `new-project` | Initialize a new research repository | `AGENTS.md`, `clo-author.toml`, folder skeleton |
+| `discover` | Interview, literature review, data discovery, ideation | discovery memos in `quality_reports/` |
+| `strategize` | Identification strategy, design trade-offs, robustness plans | strategy memo |
+| `analyze` | Scripts, estimation, tables, figures, cleaned data | `scripts/`, `paper/tables/`, `paper/figures/` |
+| `write` | Drafting and revising paper sections | manuscript text and revision artifacts |
+| `review` | Worker-critic review, code review, manuscript review, referee review | scored reports and quality decisions |
+| `revise` | Turn comments into scoped follow-up work | response plans and revision tasks |
+| `talk` | Generate or audit presentation artifacts | slides, audits, presentation updates |
+| `submit` | Packaging, replication checks, final readiness | package artifacts and submission checks |
+| `tools` | Compile, validate, inspect state, workflow housekeeping | utility output and verification evidence |
+
+---
+
+# `new-project`
+
+Use when you want to initialize a fresh research repository.
+
+Example:
+
+```text
+Use $new-project to initialize a new project on hospital mergers.
+```
+
+Expected outcome:
+
+- project scaffold
+- `AGENTS.md`
+- `clo-author.toml`
+- `quality_reports/` directories
+
+---
+
+# `discover`
+
+Use when you need to understand a question, map literature, or identify data sources.
+
+Example:
+
+```text
+Use $discover to build a literature and data overview for cash transfers and labor supply.
+```
+
+Typical modes in practice:
+
+- interview-driven discovery
+- literature review
+- data discovery
+- broad ideation
+
+---
+
+# `strategize`
+
+Use when the task is about identification, assumptions, robustness, falsification, or design comparison.
+
+Example:
+
+```text
+Use $strategize to compare staggered DiD and event-study options for this setting.
+```
+
+Expected outcome:
+
+- strategy memo
+- design recommendation
+- assumption checklist
+- robustness and falsification plan
+
+---
+
+# `analyze`
+
+Use when implementing analysis code or reviewing analysis outputs.
+
+Example:
+
+```text
+Use $analyze to implement the baseline specification and generate the first results table.
+```
+
+Expected outcome:
+
+- scripts in `scripts/`
+- outputs in `paper/tables/` and `paper/figures/`
+- verification evidence
+
+Substantial analysis work should trigger worker-critic review by default.
+
+---
+
+# `write`
+
+Use when drafting or revising paper text.
+
+Example:
+
+```text
+Use $write to draft the introduction and a clean contribution paragraph.
+```
+
+Expected outcome:
+
+- manuscript sections
+- revised text
+- writing review findings where needed
+
+---
+
+# `review`
+
+Use for quality review, referee-style review, or pre-submission pressure testing.
+
+Example:
+
+```text
+Use $review to run a methods-heavy review on paper/main.tex.
+```
+
+Expected outcome:
+
+- code or manuscript review report
+- critic findings
+- referee-style findings
+- quality-gate recommendation
+
+Common review patterns:
+
+- manuscript review
+- code review
+- methods-focused review
+- journal-aware referee review
+
+---
+
+# `revise`
+
+Use when you already have findings and want to convert them into a response plan.
+
+Example:
+
+```text
+Use $revise to classify this referee report and route the follow-up work.
+```
+
+Expected outcome:
+
+- issue classification
+- response plan
+- revised-task routing
+
+---
+
+# `talk`
+
+Use when building or auditing slides derived from the paper.
+
+Example:
+
+```text
+Use $talk to turn the current draft into a 15-minute seminar deck.
+```
+
+Expected outcome:
+
+- slide deck or talk outline
+- talk audit
+- updated presentation assets
+
+---
+
+# `submit`
+
+Use when checking whether the project is ready to ship.
+
+Example:
+
+```text
+Use $submit to audit the replication package and tell me what still blocks submission.
+```
+
+Expected outcome:
+
+- packaging checklist
+- replication audit
+- readiness summary
+
+---
+
+# `tools`
+
+Use for small but workflow-critical tasks such as compilation, validation, and state inspection.
+
+Example:
+
+```text
+Use $tools to compile the paper and summarize any LaTeX issues.
+```
+
+Expected outcome:
+
+- compile result
+- validation output
+- context or state summary
+
+---
+
+# Invocation Style
+
+The Codex version supports two practical ways of working:
+
+1. Natural language request:
+
+```text
+Build a literature review on local public finance and save it under quality_reports.
+```
+
+2. Explicit skill naming:
+
+```text
+Use $discover to build a literature review on local public finance.
+```
+
+Natural language is the default. Explicit skill naming is the sharper tool when you want to force a specific workflow family.

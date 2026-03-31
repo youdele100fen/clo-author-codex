@@ -1,0 +1,83 @@
+---
+title: "The Clo-Author Codex"
+subtitle: "Codex-First Research Workflow for Empirical Social Science"
+---
+
+The Clo-Author is a Codex-first workflow for empirical social science research. It preserves the original clo-author ideas — structured planning, worker-critic review, journal-aware peer review, and quality gates — but moves the runtime into a home-local Codex plugin plus a lightweight project constitution inside each repository.
+
+**Historical origin:** [Pedro Sant'Anna's claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow), reoriented for empirical research publication.
+
+## Get Started in 5 Minutes
+
+### Step 1: Prepare the local plugin
+
+The recommended runtime is a home-local plugin:
+
+- plugin root: `~/plugins/clo-author-codex`
+- marketplace entry: `~/.agents/plugins/marketplace.json`
+
+The plugin carries the reusable parts of the workflow: skills, prompts, references, hooks, scripts, and template assets.
+
+### Step 2: Clone or open a project
+
+```bash
+gh repo fork hugosantanna/clo-author --clone
+cd clo-author
+```
+
+If you already have a repository, make sure it has `AGENTS.md`, `clo-author.toml`, and the standard research directories so the plugin can detect it automatically.
+
+### Step 3: Open the repository in Codex
+
+Once inside Codex, the plugin should detect the project and load the Clo-Author workflow through:
+
+- `AGENTS.md`
+- `clo-author.toml`
+- the repository layout
+
+### Step 4: Start with a skill or plain-language request
+
+Examples:
+
+- "Use `$discover` to build a literature review on health insurance and labor supply."
+- "Use `$review` to run a methods-heavy review on `paper/main.tex`."
+- "Use `$new-project` to initialize a new empirical project on municipal finance."
+
+Natural language works too. The explicit skill names are useful when you want to steer Codex directly.
+
+## What Happens Behind the Scenes
+
+The Codex version keeps the same workflow logic:
+
+- plan first for substantial work
+- save artifacts to `quality_reports/`
+- run worker-critic review by default
+- route to referee-style review when needed
+- verify before completion
+
+The main difference is the runtime model. Instead of a Claude-only command stack, Codex uses:
+
+- plugin skills
+- prompt roles
+- project detection hooks
+- helper scripts for initialization, migration, logging, and review nudges
+
+## Day 1 Checklist
+
+- [ ] Ensure the home-local plugin is installed
+- [ ] Open a repository with `AGENTS.md` and `clo-author.toml`
+- [ ] Confirm Codex detects the project
+- [ ] Start with `$discover`, `$review`, or `$new-project`
+- [ ] Review the generated plan or artifact
+- [ ] Let the worker-critic loop run before treating the result as final
+
+That is the core loop. Everything else — prompts, references, hooks, and reports — supports that workflow.
+
+## Where to Go Next
+
+- [User Guide](user-guide.qmd): how to use the workflow day to day
+- [Agents and Roles](agents.qmd): the worker, critic, referee, and infrastructure roles
+- [Architecture](architecture.qmd): the plugin and repository layers
+- [Customization](customization.qmd): how to adapt the workflow to your field
+- [Reference](reference.qmd): the 10 skills and their expected outputs
+- [Migration from Claude](migration-from-claude.qmd): the old-to-new mapping

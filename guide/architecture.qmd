@@ -1,0 +1,168 @@
+---
+title: "Architecture Reference"
+subtitle: "How the Codex Version Works"
+---
+
+# System Overview
+
+The Codex version of the Clo-Author uses a split architecture:
+
+1. a reusable home-local plugin
+2. a lightweight project constitution inside each repository
+
+That separation is the biggest architectural change from the Claude version.
+
+| Layer | Where It Lives | What It Does |
+|-------|----------------|--------------|
+| Plugin manifest | home-local plugin | Registers the workflow with Codex |
+| Skills | home-local plugin | Defines the 10 workflow entry points |
+| Prompts | home-local plugin | Encodes worker, critic, referee, and orchestrator roles |
+| References | home-local plugin | Supplies field, journal, and rubric knowledge |
+| Hooks and scripts | home-local plugin | Detects projects, initializes repos, nudges review |
+| Project constitution | repository `AGENTS.md` | Project-specific rules and expectations |
+| Project marker | repository `clo-author.toml` | Activates the workflow for the repo |
+| Durable evidence | repository `quality_reports/` | Stores specs, plans, logs, reviews, and scores |
+
+---
+
+# Runtime Model
+
+The Codex workflow starts when the plugin recognizes a repository.
+
+```{mermaid}
+flowchart TD
+    A["Open repository in Codex"] --> B["Detect `clo-author.toml` + `AGENTS.md` + layout"]
+    B --> C["Load project constitution"]
+    C --> D["Route request into a workflow skill"]
+    D --> E["Create plan or artifact"]
+    E --> F["Run worker-critic review when substantial"]
+    F --> G["Save evidence to quality_reports/"]
+    G --> H["Verify before completion"]
+```
+
+This is simpler than the old Claude-specific stack, but it preserves the same workflow logic.
+
+---
+
+# Worker-Critic Loop
+
+The core control structure is still the worker-critic loop.
+
+```{mermaid}
+flowchart TD
+    W["Worker creates artifact"] --> C["Critic reviews artifact"]
+    C -->|pass| A["Approved"]
+    C -->|fail| F["Fix issues"]
+    F --> C
+```
+
+This design preserves three important properties:
+
+- workers do not self-approve
+- critics do not edit the artifact they judge
+- quality gates remain evidence-based
+
+---
+
+# Quality Gates
+
+The scoring model remains conceptually the same:
+
+- `80` to commit
+- `90` for PR-quality work
+- `95` for submission readiness
+
+The exact scoring details live in the quality references and review outputs. The role of the architecture is to make those checks routine, not optional.
+
+---
+
+# Planning and Logging
+
+The Codex version still treats planning and logs as first-class artifacts.
+
+## Planning
+
+Non-trivial work should be turned into a plan and saved to:
+
+- `quality_reports/plans/`
+
+## Session reasoning
+
+Important decisions and verification evidence should be recorded in:
+
+- `quality_reports/session_logs/`
+
+## Requirements and specs
+
+When a task is broad or ambiguous, specs belong in:
+
+- `quality_reports/specs/`
+
+---
+
+# Hooks and Scripts
+
+The old repository-local hook model is replaced by plugin hooks plus helper scripts.
+
+Current responsibilities include:
+
+- detecting compatible repositories
+- suggesting review after substantial edits
+- initializing new projects
+- migrating old projects
+- writing session-log stubs
+
+This makes the system more portable because the reusable automation lives with the plugin rather than being copied manually into every repository.
+
+---
+
+# Role Runtime in Codex
+
+In the Claude version, roles were tightly tied to a dedicated agent registry. In the Codex version, the same roles are represented as:
+
+- skill workflows
+- prompt roles
+- optional subagent patterns where supported
+- saved artifacts and review reports
+
+That means the architecture is less dependent on one product's exact runtime while keeping the same research logic.
+
+---
+
+# Project Detection
+
+The plugin treats a repository as a Clo-Author project when it sees the right markers and layout.
+
+Key signals:
+
+- `AGENTS.md`
+- `clo-author.toml`
+- `paper/`
+- `quality_reports/plans/`
+- `quality_reports/session_logs/`
+
+This detection model is what allows a home-local plugin to support many repositories without hardcoding each one.
+
+---
+
+# Additional Workflows
+
+The Codex version still supports:
+
+- exploration work in `explorations/`
+- talk generation in `paper/talks/` or `paper/quarto/`
+- replication and submission packaging
+- migration of older Claude-based repositories
+
+Those remain part of the same architecture, not bolt-ons.
+
+---
+
+# Migration Note
+
+The main architectural shift is not the research logic. It is the runtime location of that logic:
+
+- old model: repository-contained Claude infrastructure
+- new model: home-local Codex plugin plus project markers
+
+See [Migration from Claude](migration-from-claude.qmd) for the exact old-to-new correspondence.
