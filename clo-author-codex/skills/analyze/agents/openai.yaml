@@ -1,5 +1,0 @@
-interface:
-  display_name: "Analyze"
-  short_description: "Run the analysis workflow"
-  brand_color: "#195C58"
-  default_prompt: "Use $analyze to implement or review the empirical analysis workflow."

@@ -1,5 +1,0 @@
-interface:
-  display_name: "Discover"
-  short_description: "Research interviews and discovery"
-  brand_color: "#195C58"
-  default_prompt: "Use $discover to run the clo-author discovery workflow for this research question."

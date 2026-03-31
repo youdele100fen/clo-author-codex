@@ -1,5 +1,0 @@
-interface:
-  display_name: "Submit"
-  short_description: "Prepare final submission artifacts"
-  brand_color: "#195C58"
-  default_prompt: "Use $submit to check whether this project is ready for final submission."

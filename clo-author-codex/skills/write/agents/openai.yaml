@@ -1,5 +1,0 @@
-interface:
-  display_name: "Write"
-  short_description: "Draft or revise manuscript text"
-  brand_color: "#195C58"
-  default_prompt: "Use $write to draft or revise the next manuscript section for this project."

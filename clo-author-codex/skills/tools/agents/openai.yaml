@@ -1,5 +1,0 @@
-interface:
-  display_name: "Tools"
-  short_description: "Compile, validate, and inspect state"
-  brand_color: "#195C58"
-  default_prompt: "Use $tools to compile, validate, or inspect the clo-author workflow state."
