@@ -1,0 +1,5 @@
+interface:
+  display_name: "Strategize"
+  short_description: "Design empirical strategy"
+  brand_color: "#195C58"
+  default_prompt: "Use $strategize to design or review the empirical strategy for this project."

@@ -1,0 +1,16 @@
+[project]
+name = "__PROJECT_NAME__"
+slug = "__PROJECT_SLUG__"
+field = "__FIELD__"
+institution = "__INSTITUTION__"
+
+[workflow]
+plugin = "clo-author-codex"
+entry_style = "skills"
+review_mode = "worker-critic"
+automation = "auto"
+
+[quality]
+commit = 80
+pull_request = 90
+submission = 95

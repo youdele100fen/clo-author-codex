@@ -1,0 +1,5 @@
+interface:
+  display_name: "Revise"
+  short_description: "Route review comments into revisions"
+  brand_color: "#195C58"
+  default_prompt: "Use $revise to classify this referee report and route the follow-up work."
