@@ -15,29 +15,35 @@
 - Treat `paper/main.tex` as the paper source of truth when a manuscript exists.
 - Save session reasoning to `quality_reports/session_logs/`.
 - Use `clo-author.toml` as the project marker for Codex workflow activation.
+- Use checkpoint handoffs before compaction or session wrap-up.
 
 ## Workflow Skills
 
 - `new-project`
 - `discover`
-- `strategize`
+- `strategize` (including theory mode)
 - `analyze`
-- `write`
-- `review`
+- `write` (including style-guide mode)
+- `review` (including theory review)
 - `revise`
 - `talk`
 - `submit`
 - `tools`
+- `checkpoint`
 
 ## Folder Structure
 
 ```text
 __PROJECT_SLUG__/
 ├── AGENTS.md
+├── CLAUDE.md
 ├── MEMORY.md
+├── Bibliography_base.bib
 ├── clo-author.toml
+├── .claude/
 ├── paper/
 ├── data/
+├── templates/
 ├── scripts/
 ├── quality_reports/
 ├── explorations/
@@ -47,5 +53,5 @@ __PROJECT_SLUG__/
 ## Workflow Notes
 
 - Initialized with the `clo-author-codex` home-local plugin.
-- Existing Claude assets may remain archived or side-by-side during migration.
+- Claude-compatible v4.2.0 runtime assets live under `.claude/` for scaffold fidelity.
 - When in doubt, prefer explicit plans, saved artifacts, and review evidence.

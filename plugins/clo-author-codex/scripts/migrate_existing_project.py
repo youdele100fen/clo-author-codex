@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from datetime import datetime
 from pathlib import Path
 
 
@@ -10,7 +11,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from clo_author_common import build_replacements, template_root
+from clo_author_common import add_missing_template_files, build_replacements, refresh_template_files
 
 
 def parse_args() -> argparse.Namespace:
@@ -19,13 +20,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--project-name", default=None)
     parser.add_argument("--field", default="Empirical Social Science")
     parser.add_argument("--institution", default="TBD")
+    parser.add_argument(
+        "--refresh-scaffold",
+        action="store_true",
+        help="Archive and refresh plugin-managed scaffold files instead of only filling gaps",
+    )
     return parser.parse_args()
-
-
-def ensure_text_file(path: Path, content: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if not path.exists():
-        path.write_text(content)
 
 
 def main() -> None:
@@ -36,40 +36,16 @@ def main() -> None:
 
     project_name = args.project_name or project_root.name.replace("-", " ").title()
     replacements = build_replacements(project_name, args.field, args.institution)
-    source = template_root()
 
-    agents_template = source.joinpath("AGENTS.md").read_text()
-    memory_template = source.joinpath("MEMORY.md").read_text()
-    toml_template = source.joinpath("clo-author.toml").read_text()
-
-    for rel in [
-        "quality_reports/specs",
-        "quality_reports/plans",
-        "quality_reports/session_logs",
-        "archive/claude",
-    ]:
-        project_root.joinpath(rel).mkdir(parents=True, exist_ok=True)
-
-    ensure_text_file(
-        project_root / "AGENTS.md",
-        agents_template.replace("__PROJECT_NAME__", replacements["__PROJECT_NAME__"])
-        .replace("__PROJECT_SLUG__", replacements["__PROJECT_SLUG__"])
-        .replace("__FIELD__", replacements["__FIELD__"])
-        .replace("__INSTITUTION__", replacements["__INSTITUTION__"]),
-    )
-    ensure_text_file(project_root / "MEMORY.md", memory_template.replace("__PROJECT_NAME__", project_name))
-    ensure_text_file(
-        project_root / "clo-author.toml",
-        toml_template.replace("__PROJECT_NAME__", replacements["__PROJECT_NAME__"])
-        .replace("__PROJECT_SLUG__", replacements["__PROJECT_SLUG__"])
-        .replace("__FIELD__", replacements["__FIELD__"])
-        .replace("__INSTITUTION__", replacements["__INSTITUTION__"]),
-    )
-    ensure_text_file(
-        project_root / "archive/claude/README.md",
-        "# Legacy Claude Assets\n\nThe original `.claude/` workflow remains in place for reference during Codex migration.\n",
-    )
-    print(f"Migrated clo-author project at {project_root}")
+    if args.refresh_scaffold:
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        archive_root = project_root / "archive" / "codex-plugin-refresh" / timestamp
+        refresh_template_files(project_root, archive_root, replacements)
+        print(f"Refreshed clo-author scaffold at {project_root}")
+        print(f"Archived replaced files under {archive_root}")
+    else:
+        add_missing_template_files(project_root, replacements)
+        print(f"Migrated clo-author project at {project_root}")
 
 
 if __name__ == "__main__":
