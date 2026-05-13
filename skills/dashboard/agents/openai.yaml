@@ -1,0 +1,5 @@
+interface:
+  display_name: "Dashboard"
+  short_description: "Generate project dashboard"
+  brand_color: "#195C58"
+  default_prompt: "Use $dashboard to refresh the clo-author project dashboard HTML."

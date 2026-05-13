@@ -1,0 +1,5 @@
+interface:
+  display_name: "Checkpoint"
+  short_description: "Save session handoff state"
+  brand_color: "#195C58"
+  default_prompt: "Use $checkpoint to save memory, session reports, and research journal handoff notes."

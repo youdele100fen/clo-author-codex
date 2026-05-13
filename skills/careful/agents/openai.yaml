@@ -1,0 +1,5 @@
+interface:
+  display_name: "Careful"
+  short_description: "Avoid destructive commands"
+  brand_color: "#195C58"
+  default_prompt: "Use $careful to activate destructive-command caution for this session."

@@ -1,0 +1,18 @@
+[project]
+name = "__PROJECT_NAME__"
+slug = "__PROJECT_SLUG__"
+field = "__FIELD__"
+institution = "__INSTITUTION__"
+
+[workflow]
+plugin = "clo-author-codex"
+entry_style = "skills"
+review_mode = "worker-critic"
+automation = "auto"
+subagents_default = "ask-on-first-use"
+subagents_prompt = "本项目中使用 Clo-Author Codex 时，默认允许使用 Codex subagents；当插件说明要 dispatch agent/critic/referee 时，尽量用 subagent 模拟 Claude Code 的行为。"
+
+[quality]
+commit = 80
+pull_request = 90
+submission = 95

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Freeze"
+  short_description: "Declare session edit boundaries"
+  brand_color: "#195C58"
+  default_prompt: "Use $freeze to restrict this session's work to specific project paths."

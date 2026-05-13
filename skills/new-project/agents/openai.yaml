@@ -1,0 +1,5 @@
+interface:
+  display_name: "New Project"
+  short_description: "Initialize a Codex research project"
+  brand_color: "#195C58"
+  default_prompt: "Use $new-project to scaffold a new clo-author Codex research repository."

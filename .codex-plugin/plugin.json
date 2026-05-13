@@ -1,0 +1,48 @@
+{
+  "name": "clo-author-codex",
+  "version": "main-20260513-codex.1",
+  "description": "Codex-native port of current clo-author main for empirical research workflows, dashboard/report generation, session guard skills, theory review, style guides, and checkpoint handoffs.",
+  "author": {
+    "name": "Local Codex User",
+    "email": "local@clo-author.invalid",
+    "url": "https://github.com/hugosantanna/clo-author"
+  },
+  "homepage": "https://hugosantanna.github.io/clo-author/",
+  "repository": "https://github.com/hugosantanna/clo-author",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "empirical-social-science",
+    "academic-writing",
+    "codex",
+    "workflow"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks.json",
+  "interface": {
+    "displayName": "Clo-Author Codex",
+    "shortDescription": "Automated research workflows for empirical writing and analysis",
+    "longDescription": "Ports the current clo-author main branch into Codex-native skills, hooks, prompts, project templates, migration helpers, dashboard/report generation, session guard skills, theory workflows, personal style-guide extraction, checkpoint handoffs, and worker-critic review loops for empirical social science work.",
+    "developerName": "Local Codex User",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://hugosantanna.github.io/clo-author/",
+    "privacyPolicyURL": "https://openai.com/policies/row-privacy-policy/",
+    "termsOfServiceURL": "https://openai.com/policies/row-terms-of-use/",
+    "defaultPrompt": [
+      "Initialize a new current-main clo-author research project with Codex",
+      "Review this empirical paper with the clo-author worker-critic and theory-aware flow",
+      "Extract my writing style guide and use it for manuscript drafting",
+      "Create a checkpoint handoff for this research session",
+      "Generate a clo-author project dashboard"
+    ],
+    "brandColor": "#195C58",
+    "composerIcon": "./assets/clo-author-codex-small.svg",
+    "logo": "./assets/clo-author-codex-large.svg",
+    "screenshots": []
+  }
+}

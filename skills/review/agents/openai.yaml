@@ -1,0 +1,5 @@
+interface:
+  display_name: "Review"
+  short_description: "Run quality and referee review"
+  brand_color: "#195C58"
+  default_prompt: "Use $review to run the clo-author review workflow on this artifact."
